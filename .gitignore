@@ -1,0 +1,26 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+!*.env.example
+
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Gmail OAuth2 (credențiale downloadate din Google Cloud Console + token cache)
+backend/credentials.json
+backend/token.json
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.vercel
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# OS
+.DS_Store
