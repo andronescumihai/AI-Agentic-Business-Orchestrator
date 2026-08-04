@@ -12,26 +12,22 @@
 
 </div>
 
----
-
 ## 📖 Overview
 
 This project implements an **autonomous AI orchestrator** for a business built around
-appointments, modeled here as a dental clinic. Instead of a single chatbot answering
+appointments — modeled here as a dental clinic. Instead of a single chatbot answering
 everything, the system is split into specialized agents (email/communication, booking,
 finance) coordinated by a **LangGraph** state machine, each backed by **Claude**
 (Anthropic API) for reasoning and **Supabase (Postgres)** for persistence.
 
-The core design principle: **AI decides, code verifies.** No critical action, like
-confirming an appointment slot, is ever taken purely on the model's word. Every
+The core design principle: **AI decides, code verifies.** No critical action — like
+confirming an appointment slot — is ever taken purely on the model's word. Every
 consequential write is validated against the database first. Where the model is
 uncertain, the system escalates to a human (the clinic owner) instead of guessing.
 
 > **Domain:** A dental clinic with three access tiers — owner, doctor, client —
 > each with a distinct, database-enforced view of the same data: appointments,
 > notes, and financials.
-
----
 
 ## ✨ Key Features
 
@@ -50,8 +46,6 @@ uncertain, the system escalates to a human (the clinic owner) instead of guessin
 | 💰 **Finance** | Owner dashboard | Revenue, expenses, and profit summary, computed from Supabase, restricted to the owner role |
 | 🎨 **Frontend** | Premium UI | Glassmorphism panels, dark premium palette, and a canvas-based animated background (Perlin noise, mouse-reactive), integrated selectively rather than across every surface |
 | 📧 **Integration** | Gmail API (OAuth2) | Reads real inbound emails from a connected mailbox and routes them through the same classification pipeline as simulated messages — tested end-to-end against a live inbox, including automatic escalation to the owner on low-confidence messages |
-
----
 
 ## 🗄️ Database Schema
 
@@ -84,8 +78,6 @@ resolved
 - `client_own_appointments` — client sees only rows where `client_id = auth.uid()`
 - `finance_owner_only` — `finance_entries` restricted entirely to the owner role
 
----
-
 ## 🏗️ Repository Structure
 
 ```
@@ -114,8 +106,6 @@ clinic-ai-orchestrator/
     └── ...
 ```
 
----
-
 ## 🧠 What I Learned
 
 - **Multi-agent orchestration** — structuring a LangGraph state machine with
@@ -134,8 +124,6 @@ clinic-ai-orchestrator/
   deliberately, rather than maximizing visual effects at the cost of performance
   and clarity
 
----
-
 ## 🔧 Context
 
 Built as a personal portfolio project exploring practical multi-agent AI system
@@ -145,8 +133,6 @@ concrete, relatable domain.
 
 Tools: **Python 3.14**, **LangGraph**, **Anthropic Claude API**, **Supabase
 (Postgres + Row Level Security)**, **Next.js**, **TypeScript**, **Gmail API (OAuth2)**.
-
----
 
 ## 👤 Author
 
