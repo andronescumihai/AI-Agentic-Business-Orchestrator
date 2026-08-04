@@ -17,13 +17,13 @@
 ## 📖 Overview
 
 This project implements an **autonomous AI orchestrator** for a business built around
-appointments — modeled here as a dental clinic. Instead of a single chatbot answering
+appointments, modeled here as a dental clinic. Instead of a single chatbot answering
 everything, the system is split into specialized agents (email/communication, booking,
 finance) coordinated by a **LangGraph** state machine, each backed by **Claude**
 (Anthropic API) for reasoning and **Supabase (Postgres)** for persistence.
 
-The core design principle: **AI decides, code verifies.** No critical action — like
-confirming an appointment slot — is ever taken purely on the model's word. Every
+The core design principle: **AI decides, code verifies.** No critical action, like
+confirming an appointment slot, is ever taken purely on the model's word. Every
 consequential write is validated against the database first. Where the model is
 uncertain, the system escalates to a human (the clinic owner) instead of guessing.
 
