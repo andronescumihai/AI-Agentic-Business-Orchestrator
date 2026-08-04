@@ -48,8 +48,8 @@ uncertain, the system escalates to a human (the clinic owner) instead of guessin
 | 📅 **Scheduling** | Doctor weekly calendar | Current week / next week / +2 weeks view, filtered server-side per doctor — no cross-doctor data leakage |
 | 📝 **Collaboration** | Appointment notes | Clients can leave notes on their appointment (e.g. running late, reschedule request); visible to the assigned doctor, isolated per appointment |
 | 💰 **Finance** | Owner dashboard | Revenue, expenses, and profit summary, computed from Supabase, restricted to the owner role |
-| 🎨 **Frontend** | Premium UI | Glassmorphism panels, dark premium palette, and selectively integrated motion components (React Bits) — used only where they aid clarity, not on every surface |
-| 📧 **Integration** | Gmail API (OAuth2) | Reads real inbound emails from a connected test mailbox and routes them through the same classification pipeline as simulated messages |
+| 🎨 **Frontend** | Premium UI | Glassmorphism panels, dark premium palette, and a canvas-based animated background (Perlin noise, mouse-reactive), integrated selectively rather than across every surface |
+| 📧 **Integration** | Gmail API (OAuth2) | Reads real inbound emails from a connected mailbox and routes them through the same classification pipeline as simulated messages — tested end-to-end against a live inbox, including automatic escalation to the owner on low-confidence messages |
 
 ---
 
@@ -93,17 +93,17 @@ clinic-ai-orchestrator/
 │
 ├── backend/
 │   ├── main.py                      # CLI demo entry point — runs the full graph end-to-end
+│   ├── main_gmail.py                # Connects a real Gmail inbox to the orchestrator
+│   ├── gmail_client.py              # Gmail API: inbox read + mark-as-read
+│   ├── gmail_auth_setup.py          # Interactive OAuth2 setup script
 │   ├── orchestrator.py              # LangGraph definition: classify → escalate/auto_respond → log
 │   ├── agents/
 │   │   ├── email_agent.py           # Claude-backed classification + confidence-based escalation
 │   │   ├── booking_agent.py         # DB-verified slot availability, appointment creation
 │   │   └── finance_agent.py         # Revenue/expense aggregation
-│   ├── db/
-│   │   ├── schema.sql               # Full Postgres schema + Row Level Security policies
-│   │   └── supabase_client.py       # Singleton Supabase client
-│   ├── gmail_client.py              # Gmail API: inbox read + mark-as-read
-│   ├── gmail_auth_setup.py          # Interactive OAuth2 setup script
-│   └── main_gmail.py                # Connects real Gmail inbox to the orchestrator
+│   └── db/
+│       ├── schema.sql               # Full Postgres schema + Row Level Security policies
+│       └── supabase_client.py       # Singleton Supabase client
 │
 └── frontend/
     ├── src/
@@ -127,8 +127,9 @@ clinic-ai-orchestrator/
 - **Separating reasoning from execution** — letting Claude decide *what* to do,
   while keeping every state-changing action (bookings, financial reads) gated by
   deterministic, testable code
-- **OAuth2 integration** — wiring a real Gmail inbox into an automated pipeline
-  while keeping credentials strictly server-side and out of version control
+- **OAuth2 integration** — wiring a real Gmail inbox into an automated pipeline,
+  verifying the full loop (read → classify → escalate → respond) against live
+  email, while keeping credentials strictly server-side and out of version control
 - **Frontend restraint** — choosing a small set of motion/visual components
   deliberately, rather than maximizing visual effects at the cost of performance
   and clarity
@@ -153,7 +154,7 @@ Tools: **Python 3.14**, **LangGraph**, **Anthropic Claude API**, **Supabase
 
 **Andronescu Mihai-Alexandru**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/andronescumihai)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mihai-alexandru-andronescu-58792b33b/)
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/andronescumihai)
 
 </div>
